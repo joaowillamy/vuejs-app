@@ -1,40 +1,19 @@
 <template>
   <div>
-    <p v-for="result in results" v-bind:key="result.id">{{ result.career }}</p>
+    <p v-for="candidate in candidates" v-bind:key="candidate.id">{{ candidate.career }}</p>
   </div>
 </template>
 
 <script>
-import Vue from 'vue';
-import Vuex from 'vuex';
-import { fetchCandidates } from '../services/CandidatesService';
-
-Vue.use(Vuex);
-const store = new Vuex.Store({
-  state: {
-    results: [],
-  },
-  actions: {
-    getListCandidates({ commit }) {
-      fetchCandidates().then((json) => { commit('setProducts', json); });
-    },
-  },
-  mutations: {
-    setProducts(state, results) {
-      state.results = results;
-    },
-  },
-});
+import { mapState } from 'vuex';
 
 export default {
   name: 'ListCandidates',
-  computed: {
-    results() {
-      return store.state.results;
-    },
-  },
+  computed: mapState({
+    candidates: state => state.candidates.results,
+  }),
   created() {
-    store.dispatch('getListCandidates');
+    this.$store.dispatch('candidates/getListCandidates');
   },
 };
 </script>

@@ -1,3 +1,4 @@
+// TODO: Add a cross-env, ex: process.env.NODE_ENV !== 'production'
 const URL = 'http://localhost:3000';
 
 const HEADER = new Headers();
