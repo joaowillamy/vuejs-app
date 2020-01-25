@@ -1,42 +1,64 @@
-// TODO: Add a cross-env, ex: process.env.NODE_ENV !== 'production'
-const BASE = 'http://localhost:3000';
+import { isEmptyObj } from '../help';
 
-const HEADER = new Headers();
-HEADER.set('Content-Type', 'application/json');
+export default class ConfigRequest {
+  // TODO: Add a cross-env, ex: process.env.NODE_ENV !== 'production'
 
-const HTTP = {
-  headers: HEADER,
-  mode: 'cors',
-  cache: 'default',
-};
+  baseUrl = 'http://localhost:3000';
 
-const GET = {
-  method: 'GET',
-  ...HTTP,
-};
+  resource;
 
-const PATCH = {
-  method: 'PATCH',
-  ...HTTP,
-};
+  header;
 
-const DELETE = {
-  method: 'DELETE',
-  ...HTTP,
-};
+  http;
 
-const fullUrl = (url, id) => `${url}/${id}`;
+  url;
 
-const makeBody = (httpType, body) => {
-  const req = { ...httpType, body: JSON.stringify(body) };
-  return req;
-};
+  constructor(resource = '/') {
+    this.resource = resource;
+    this.url = `${this.baseUrl}${this.resource}`;
+    this.configHeader();
+    this.configHttp();
+  }
 
-export {
-  BASE,
-  GET,
-  PATCH,
-  DELETE,
-  fullUrl,
-  makeBody,
-};
+  httpFetch(url = this.url, httpType = this.http) {
+    return fetch(url, httpType).then(response => response.json());
+  }
+
+  getAll(parans) {
+    const get = { method: 'GET', ...this.http };
+    return this.httpFetch(this.fullUrl({ parans }), get);
+  }
+
+  patch(id, body) {
+    const patch = { method: 'PATCH', ...this.http, body: JSON.stringify(body) };
+    return this.httpFetch(this.fullUrl({ id }), patch, patch);
+  }
+
+  delete(id) {
+    const del = { method: 'DELETE', ...this.http };
+    return this.httpFetch(this.fullUrl({ id }), del);
+  }
+
+  configHeader() {
+    this.header = new Headers();
+    this.header.set('Content-Type', 'application/json');
+  }
+
+  configHttp() {
+    this.http = { headers: this.header, mode: 'cors', cache: 'default' };
+  }
+
+  fullUrl({ id = '', parans = '' }) {
+    return `${this.url}${id && `/${id}`}${this.jsonToQueryString(parans)}`;
+  }
+
+  jsonToQueryString = (json = false) => {
+    if (isEmptyObj(json)) return '';
+
+    const queryString = Object.keys(json)
+      .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(json[key])}`)
+      .join('&');
+
+    return `?${queryString}`;
+  }
+}

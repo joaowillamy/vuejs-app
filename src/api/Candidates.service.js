@@ -1,20 +1,11 @@
-import {
-  BASE,
-  GET,
-  PATCH,
-  DELETE,
-  fullUrl,
-  makeBody,
-} from './HttpShared.constants';
+import ConfigRequest from './HttpShared.constants';
 
-const RESOURCE = '/candidates';
-const URL = `${BASE}${RESOURCE}`;
+const http = new ConfigRequest('/candidates');
 
-const fetchCandidates = () => fetch(URL, GET).then(response => response.json());
+const fetchCandidates = () => http.getAll();
 
-const updateCandidate = (id, body) => fetch(fullUrl(URL, id), makeBody(PATCH, body))
-  .then(response => response.json());
+const updateCandidate = (id, body) => http.patch(id, body);
 
-const deleteCandidate = id => fetch(fullUrl(URL, id), DELETE).then(response => response.json());
+const deleteCandidate = id => http.delete(id);
 
 export { fetchCandidates, updateCandidate, deleteCandidate };

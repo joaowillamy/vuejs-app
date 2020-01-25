@@ -1,12 +1,5 @@
 import { fetchCandidates, deleteCandidate, updateCandidate } from '../../api/Candidates.service';
-
-const getById = (state, id) => state.all.find(candidate_ => candidate_.id === id);
-
-const setById = (state, id, newCandidate) => state.all
-  .map((candidate_) => {
-    if (candidate_.id === id) return newCandidate;
-    return candidate_;
-  });
+import { setById, getById } from '../../help';
 
 const state = {
   all: [],
