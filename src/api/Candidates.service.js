@@ -1,15 +1,16 @@
 import {
-  URL,
+  BASE,
   GET,
   PUT,
   DELETE,
+  fullUrl,
 } from './HttpShared.constants';
 
 const RESOURCE = '/candidates';
-const FULL_URL = `${URL}${RESOURCE}`;
+const URL = `${BASE}${RESOURCE}`;
 
-const fetchCandidates = () => fetch(FULL_URL, GET).then(response => response.json());
-const updateCandidate = () => fetch(FULL_URL, PUT).then(response => response.json());
-const deleteCandidate = () => fetch(FULL_URL, DELETE).then(response => response.json());
+const fetchCandidates = () => fetch(URL, GET).then(response => response.json());
+const updateCandidate = () => fetch(URL, PUT).then(response => response.json());
+const deleteCandidate = id => fetch(fullUrl(URL, id), DELETE).then(response => response.json());
 
 export { fetchCandidates, updateCandidate, deleteCandidate };

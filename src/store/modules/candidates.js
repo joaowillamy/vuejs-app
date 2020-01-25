@@ -1,5 +1,5 @@
 /* eslint no-param-reassign: ["error", { "props": false }] */
-import { fetchCandidates } from '../../api/Candidates.service';
+import { fetchCandidates, deleteCandidate } from '../../api/Candidates.service';
 
 const state = {
   all: [],
@@ -9,12 +9,16 @@ const getters = {};
 
 const actions = {
   getListCandidates({ commit }) {
-    fetchCandidates().then((json) => { commit('setProducts', json); });
+    fetchCandidates().then((json) => { commit('setCandidates', json); });
+  },
+
+  deleteCandidate({ dispatch }, candidate) {
+    deleteCandidate(candidate.id).then(() => { dispatch('getListCandidates'); });
   },
 };
 
 const mutations = {
-  setProducts(state_, all) {
+  setCandidates(state_, all) {
     state_.all = all;
   },
 };

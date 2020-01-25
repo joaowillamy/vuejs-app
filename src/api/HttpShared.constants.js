@@ -1,5 +1,5 @@
 // TODO: Add a cross-env, ex: process.env.NODE_ENV !== 'production'
-const URL = 'http://localhost:3000';
+const BASE = 'http://localhost:3000';
 
 const HEADER = new Headers();
 HEADER.set('Content-Type', 'application/json');
@@ -25,9 +25,12 @@ const DELETE = {
   ...HTTP,
 };
 
+const fullUrl = (url, id) => `${url}/${id}`;
+
 export {
-  URL,
+  BASE,
   GET,
   PUT,
   DELETE,
+  fullUrl,
 };
