@@ -15,8 +15,8 @@ const GET = {
   ...HTTP,
 };
 
-const PUT = {
-  method: 'GET',
+const PATCH = {
+  method: 'PATCH',
   ...HTTP,
 };
 
@@ -27,10 +27,16 @@ const DELETE = {
 
 const fullUrl = (url, id) => `${url}/${id}`;
 
+const makeBody = (httpType, body) => {
+  const req = { ...httpType, body: JSON.stringify(body) };
+  return req;
+};
+
 export {
   BASE,
   GET,
-  PUT,
+  PATCH,
   DELETE,
   fullUrl,
+  makeBody,
 };

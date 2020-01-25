@@ -1,7 +1,8 @@
 <template>
   <div class="candidate">
-    {{ candidate.id }}
+    {{ candidate.id }} - {{candidate.favorite}}
     <button v-on:click="deleteCandidate(candidate)">Delete</button>
+    <button v-on:click="toggleFavorite(candidate)">favorite</button>
   </div>
 </template>
 
@@ -13,6 +14,9 @@ export default {
   methods: {
     deleteCandidate(candidate) {
       this.$store.dispatch('candidates/deleteCandidate', candidate);
+    },
+    toggleFavorite(candidate) {
+      this.$store.dispatch('candidates/toggleFavorite', candidate);
     },
   },
 };
