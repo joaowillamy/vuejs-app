@@ -2,7 +2,7 @@
 import { fetchCandidates } from '../../api/Candidates.service';
 
 const state = {
-  results: [],
+  all: [],
 };
 
 const getters = {};
@@ -14,8 +14,8 @@ const actions = {
 };
 
 const mutations = {
-  setProducts(state_, results) {
-    state_.results = results;
+  setProducts(state_, all) {
+    state_.all = all;
   },
 };
 

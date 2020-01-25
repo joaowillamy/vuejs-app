@@ -1,16 +1,24 @@
 <template>
   <div>
-    <p v-for="candidate in candidates" v-bind:key="candidate.id">{{ candidate.career }}</p>
+    <candidate-item
+      v-for="candidate in candidates"
+      v-bind:candidate="candidate"
+      v-bind:key="candidate.id"
+    ></candidate-item>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex';
+import CandidateItem from './CandidateItem.vue';
 
 export default {
   name: 'ListCandidates',
+  components: {
+    CandidateItem,
+  },
   computed: mapState({
-    candidates: state => state.candidates.results,
+    candidates: state => state.candidates.all,
   }),
   created() {
     this.$store.dispatch('candidates/getListCandidates');
