@@ -1,4 +1,3 @@
-/* eslint no-param-reassign: ["error", { "props": false }] */
 import { fetchCandidates, deleteCandidate } from '../../api/Candidates.service';
 
 const state = {
@@ -18,8 +17,8 @@ const actions = {
 };
 
 const mutations = {
-  setCandidates(state_, all) {
-    state_.all = all;
+  setCandidates(state, all) {
+    state.all = all;
   },
 };
 
