@@ -1,6 +1,6 @@
 <template>
   <div class="candidate">
-    {{ candidate.id }} - {{candidate.favorite}}
+    {{ candidate.id }} - {{ candidate.name }} - {{candidate.favorite}}
     <button v-on:click="deleteCandidate(candidate)">Delete</button>
     <button v-on:click="toggleFavorite(candidate)">favorite</button>
   </div>

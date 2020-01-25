@@ -24,9 +24,9 @@ export default class ConfigRequest {
     return fetch(url, httpType).then(response => response.json());
   }
 
-  getAll(parans) {
+  getAll(params) {
     const get = { method: 'GET', ...this.http };
-    return this.httpFetch(this.fullUrl({ parans }), get);
+    return this.httpFetch(this.fullUrl({ params }), get);
   }
 
   patch(id, body) {
@@ -48,8 +48,8 @@ export default class ConfigRequest {
     this.http = { headers: this.header, mode: 'cors', cache: 'default' };
   }
 
-  fullUrl({ id = '', parans = '' }) {
-    return `${this.url}${id && `/${id}`}${this.jsonToQueryString(parans)}`;
+  fullUrl({ id = '', params = '' }) {
+    return `${this.url}${id && `/${id}`}${this.jsonToQueryString(params)}`;
   }
 
   jsonToQueryString = (json = false) => {
