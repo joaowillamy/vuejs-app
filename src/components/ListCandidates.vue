@@ -1,10 +1,12 @@
 <template>
-  <div>
-    <candidate-item
-      v-for="candidate in candidates"
-      :candidate="candidate"
-      :key="candidate.id"
-    />
+  <div class="container">
+    <section class="list-candidates">
+      <candidate-item
+        v-for="candidate in candidates"
+        :candidate="candidate"
+        :key="candidate.id"
+      />
+    </section>
   </div>
 </template>
 
@@ -27,5 +29,13 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style lang="scss" scoped>
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .list-candidates {
+    width: 80rem;
+  }
 </style>

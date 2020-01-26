@@ -1,6 +1,12 @@
 <template>
-  <div class="candidate">
-    {{ candidate.id }} - {{ candidate.name }} - {{candidate.favorite}}
+  <div class="box-candidate">
+    <header class="heading-primary">
+      <h1 class="heading-primary--main">{{ candidate.name }}</h1>
+      <h2 class="heading-primary--sub">{{ candidate.name }}</h2>
+    </header>
+    <p class="paragraph">
+      {{ candidate.id }}  - {{candidate.favorite}}
+    </p>
     <button @click="deleteCandidate(candidate)">Delete</button>
     <button @click="toggleFavorite(candidate)">favorite</button>
   </div>
@@ -19,10 +25,13 @@ export default {
 };
 
 </script>
-
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-.candidate {
-  margin: 20px;
-}
+<style lang="scss" scoped>
+  @import '../assets/scss/abstracts/variables';
+
+  .box-candidate {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 1.1px solid $color-grey;
+  }
 </style>
