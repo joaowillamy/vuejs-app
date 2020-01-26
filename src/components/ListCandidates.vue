@@ -2,9 +2,9 @@
   <div>
     <candidate-item
       v-for="candidate in candidates"
-      v-bind:candidate="candidate"
-      v-bind:key="candidate.id"
-    ></candidate-item>
+      :candidate="candidate"
+      :key="candidate.id"
+    />
   </div>
 </template>
 

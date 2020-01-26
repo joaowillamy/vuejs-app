@@ -1,25 +1,23 @@
 <template>
   <div class="candidate">
     {{ candidate.id }} - {{ candidate.name }} - {{candidate.favorite}}
-    <button v-on:click="deleteCandidate(candidate)">Delete</button>
-    <button v-on:click="toggleFavorite(candidate)">favorite</button>
+    <button @click="deleteCandidate(candidate)">Delete</button>
+    <button @click="toggleFavorite(candidate)">favorite</button>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 
 export default {
   name: 'CandidateItem',
   props: ['candidate'],
-  methods: {
-    deleteCandidate(candidate) {
-      this.$store.dispatch('candidates/deleteCandidate', candidate);
-    },
-    toggleFavorite(candidate) {
-      this.$store.dispatch('candidates/toggleFavorite', candidate);
-    },
-  },
+  methods: mapActions('candidates', [
+    'deleteCandidate',
+    'toggleFavorite',
+  ]),
 };
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

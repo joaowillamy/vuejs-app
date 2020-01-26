@@ -6,8 +6,4 @@ const setById = (state, id, newItem) => state.all
     return item;
   });
 
-const isEmptyObj = obj => (
-  !obj || typeof obj !== 'object' || (Object.entries(obj).length === 0 && obj.constructor === Object)
-);
-
-export { setById, getById, isEmptyObj };
+export { setById, getById };

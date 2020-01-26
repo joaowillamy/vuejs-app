@@ -1,9 +1,7 @@
-import { isEmptyObj } from '../help';
+import { jsonToQueryString } from '../utils/help.util';
 
 export default class ConfigRequest {
-  // TODO: Add a cross-env, ex: process.env.NODE_ENV !== 'production'
-
-  baseUrl = 'http://localhost:3000';
+  baseUrl;
 
   resource;
 
@@ -14,6 +12,7 @@ export default class ConfigRequest {
   url;
 
   constructor(resource = '/') {
+    this.baseUrl = process.env.VUE_APP_BASE_URL_SRV;
     this.resource = resource;
     this.url = `${this.baseUrl}${this.resource}`;
     this.configHeader();
@@ -49,16 +48,7 @@ export default class ConfigRequest {
   }
 
   fullUrl({ id = '', params = '' }) {
-    return `${this.url}${id && `/${id}`}${this.jsonToQueryString(params)}`;
-  }
-
-  jsonToQueryString = (json = false) => {
-    if (isEmptyObj(json)) return '';
-
-    const queryString = Object.keys(json)
-      .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(json[key])}`)
-      .join('&');
-
-    return `?${queryString}`;
+    const newId = id || id === 0 ? `/${id}` : '';
+    return `${this.url}${newId}${jsonToQueryString(params)}`;
   }
 }

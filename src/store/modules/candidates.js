@@ -1,5 +1,5 @@
 import { fetchCandidates, deleteCandidate, updateCandidate } from '../../api/Candidates.service';
-import { setById, getById } from '../../help';
+import { setById, getById } from '../../utils/store.util';
 
 const state = {
   all: [],
@@ -8,20 +8,21 @@ const state = {
 const getters = {};
 
 const actions = {
-  getListCandidates({ commit }) {
-    fetchCandidates().then((json) => { commit('setCandidates', json); });
+  async getListCandidates({ commit }) {
+    const json = await fetchCandidates();
+    commit('setCandidates', json);
   },
 
-  deleteCandidate({ dispatch }, candidate) {
-    deleteCandidate(candidate.id).then(() => { dispatch('getListCandidates'); });
+  async deleteCandidate({ dispatch }, candidate) {
+    await deleteCandidate(candidate.id);
+    dispatch('getListCandidates');
   },
 
-  toggleFavorite({ commit, state }, candidate) {
+  async toggleFavorite({ commit, state }, candidate) {
     commit('setToggleFavorite', candidate);
     const newCandidate = getById(state, candidate.id);
-
-    updateCandidate(candidate.id, { favorite: newCandidate.favorite })
-      .then((json) => { commit('setCandidate', json); });
+    const json = await updateCandidate(candidate.id, { favorite: newCandidate.favorite });
+    commit('setCandidate', json);
   },
 };
 
