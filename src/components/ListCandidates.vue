@@ -36,6 +36,9 @@ export default {
     align-items: center;
   }
   .list-candidates {
-    width: 80rem;
+    width: 70rem;
+    animation-name: moveInLeft;
+    animation-duration: 1s;
+    animation-timing-function: ease-out;
   }
 </style>
