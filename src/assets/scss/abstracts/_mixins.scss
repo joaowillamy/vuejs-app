@@ -6,10 +6,14 @@
   }
 }
 
-@mixin flexCenter {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+@mixin icons {
+  @each $i in $icons {
+    .icon-#{nth($i,1)} {
+      mask: asset('icons/#{nth($i,1)}.svg');
+      width: nth(nth($i,2),1);
+      height: nth(nth($i,2),2);
+    }
+  }
 }
 
 @mixin absCenter {

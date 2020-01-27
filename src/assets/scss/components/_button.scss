@@ -12,6 +12,15 @@
     cursor: pointer;
   }
 
+  &--icon {
+    width: 4rem;
+    height: 3rem;
+    padding: .2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   &:hover {
     background-color: darken($color-grey-light, 5%);
   }

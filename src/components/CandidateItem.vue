@@ -5,19 +5,26 @@
     </div>
     <div class="box-candidate__info">
       <header class="heading-primary">
-        <h1 class="heading-primary--main">{{ candidate.name }}</h1>
-        <h2 class="heading-primary--sub">{{ candidate.name }}</h2>
+        <div class="box-candidate__title">
+          <h1 class="heading-primary--main">
+            {{ candidate.name }}
+            <span class="flag-red-outline" v-if='candidate.newThisWeek'>Novo essa semana</span>
+          </h1>
+        </div>
+        <h2 class="heading-primary--sub">{{ candidate.career }}</h2>
       </header>
       <p class="paragraph">{{ candidate.id }}  - {{candidate.favorite}}</p>
     </div>
     <div class="box-candidate__actions">
       <button
-        class="btn btn--white btn--outline"
+        class="btn btn--white btn--outline btn--icon"
         @click="toggleFavorite(candidate)">
-          favorite
+          <i class="icon icon-star"></i>
       </button>
       <div class="dropdown">
-        <button class="btn btn--white btn--outline">...</button>
+        <button class="btn btn--white btn--outline btn--icon">
+          <i class="icon icon-dots"></i>
+        </button>
         <div class="dropdown__content">
           <a @click="deleteCandidate(candidate)">Remover</a>
         </div>
@@ -66,6 +73,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
   @import '../assets/scss/abstracts/variables';
+
   $box-padding: 1rem;
 
   .box-candidate {
@@ -77,7 +85,7 @@ export default {
     position: relative;
     transition: all .3s;
 
-    &:hover {
+    &:hove  r {
       box-shadow: 0 .3rem .5rem rgba($color-black,.1);
 
       &::after {
@@ -87,6 +95,8 @@ export default {
     &__image {
       width: 10rem;
       height: 10rem;
+      padding: .5rem;
+
       img {
         height: 100%;
         max-width: 100%;
@@ -95,7 +105,19 @@ export default {
     }
 
     &__info {
+      margin-left: 1rem;
       flex-grow: 2;
+    }
+
+    &__title {
+      display: flex;
+      align-items: flex-start;
+      h1 {
+        margin-bottom: .3rem;
+      }
+      span {
+        margin-left: .2rem;
+      }
     }
 
     &__actions {
