@@ -1,8 +1,14 @@
 <template>
   <div class="box-candidate">
+<!--
+  IMAGE
+-->
     <div class="box-candidate__image">
       <img :src='candidate.imageUrl' alt="">
     </div>
+<!--
+  INFO
+-->
     <div class="box-candidate__info">
       <header class="heading-primary">
         <div class="box-candidate__title">
@@ -13,13 +19,37 @@
         </div>
         <h2 class="heading-primary--sub">{{ candidate.career }}</h2>
       </header>
-      <p class="paragraph">{{ candidate.id }}  - {{candidate.favorite}}</p>
+      <p class="paragraph">
+        <i class="icon icon-work"></i>
+        <span class="span-list"> {{ candidateLastCompanies }} </span>
+      </p>
+      <p class="paragraph">
+        <i class="icon icon-study"></i><span class="span-list"> {{ candidate.university }} </span>
+      </p>
+      <p class="paragraph">
+        <i class="icon icon-location"></i>
+        <span class="span-list">
+          {{ candidateCities }}
+          <b v-if="candidateMoreCities > 0"> e mais {{candidateMoreCities}} cidades.</b>
+        </span>
+      </p>
+      <p class="paragraph">
+        <i class="icon icon-skills"></i>
+        <span class="span-list">Principais Habilidades:
+          <span class="flag-grey" v-for="( skill, index ) in candidate.mainSkills" :key="index" >
+            {{skill}}
+          </span>
+        </span>
+      </p>
     </div>
+<!--
+    ACTIONS
+-->
     <div class="box-candidate__actions">
       <button
         class="btn btn--white btn--outline btn--icon"
         @click="toggleFavorite(candidate)">
-          <i class="icon icon-star"></i>
+          <i class="icon icon-star" :class="{ 'favorite': candidate.favorite }"></i>
       </button>
       <div class="dropdown">
         <button class="btn btn--white btn--outline btn--icon">
@@ -36,33 +66,21 @@
 <script>
 import { mapActions } from 'vuex';
 
-const candidate = {
-  id: 13,
-  imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmEY24VfmZUwPiFt2tQdUTHuRZ-PTMtBL3B53SvmexSiy6P7V0ew',
-  name: 'Ernie Ullrich',
-  newThisWeek: false,
-  career: 'Human Optimization Technician',
-  lastCompanies: [
-    'Abshire, Lindgren and Becker',
-    'Macejkovic LLC',
-  ],
-  university: 'Vermont',
-  cities: [
-    'Port Charleshaven',
-    'Brianneside',
-    'Fredericshire',
-    'East Llewellynberg',
-  ],
-  mainSkills: [
-    'Paradigm',
-    'Security',
-  ],
-  favorite: true,
-};
-console.log(candidate);
 export default {
   name: 'CandidateItem',
   props: ['candidate'],
+  computed: {
+    candidateLastCompanies() {
+      return this.candidate.lastCompanies.join(', ');
+    },
+    candidateCities() {
+      if (this.candidate.cities.length > 2) return this.candidate.cities.slice(0, 2).join(', ');
+      return this.candidate.cities.join(', ');
+    },
+    candidateMoreCities() {
+      return this.candidate.cities.length - 2;
+    },
+  },
   methods: mapActions('candidates', [
     'deleteCandidate',
     'toggleFavorite',
@@ -75,7 +93,10 @@ export default {
   @import '../assets/scss/abstracts/variables';
 
   $box-padding: 1rem;
-
+  .favorite {
+    background-color: #ffd134;
+    padding: .9rem;
+  }
   .box-candidate {
     padding: $box-padding;
     margin-bottom: .5rem;
@@ -89,7 +110,7 @@ export default {
       box-shadow: 0 .3rem .5rem rgba($color-black,.1);
 
       &::after {
-          opacity: 0;
+        opacity: 0;
       }
     }
     &__image {
@@ -107,6 +128,10 @@ export default {
     &__info {
       margin-left: 1rem;
       flex-grow: 2;
+      .span-list {
+        font-size: 1.4rem;
+        margin-left: 1rem;
+      }
     }
 
     &__title {

@@ -28,7 +28,7 @@
   &:active,
   &:focus {
     outline: none;
-    background-color: darken($color-grey-light, 10%);
+    background-color: lighten($color-grey-light, 8%);
   }
 
   &--white {

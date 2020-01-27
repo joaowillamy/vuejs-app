@@ -29,7 +29,7 @@ body {
 
 .paragraph {
     font-size: $default-font-size;
-
+    display: flex;
     &:not(:last-child) {
         margin-bottom: .5rem;
     }

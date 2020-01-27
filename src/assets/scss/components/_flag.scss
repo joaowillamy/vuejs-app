@@ -11,3 +11,11 @@
   border: 1px solid $color-primary;
   color: $color-primary;
 }
+
+.flag-grey {
+  @extend %flag;
+  background-color: darken($color-grey-light, 3%);
+  color: $color-black;
+  margin: .25rem;
+  padding: .3rem 1rem;
+}
