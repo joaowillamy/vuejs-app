@@ -1,29 +1,20 @@
-# vuejs-app
+# Como subir esta App
 
-## Project setup
-```
-yarn install
-```
+## Backend Via npm
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+Baixe o repositorio e rode os comandos a seguir e o servidor estará rodando em
+`http://localhost:3000`
 
-### Compiles and minifies for production
 ```
-yarn build
+cd back
+npm install
+npm start
 ```
 
-### Run your unit tests
-```
-yarn test:unit
-```
+## Frontend Via npm
 
-### Lints and fixes files
 ```
-yarn lint
+cd front
+npm install
+npm run serve
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
